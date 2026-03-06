@@ -379,7 +379,7 @@ function renderOnline(){
     item.appendChild(av);item.appendChild(nm);
     if(unread>0){const b=document.createElement("span");b.className="ubadge";b.textContent=unread;item.appendChild(b);}
     item.appendChild(dot);
-    item.onclick=()=>openDM(name);
+    item.onclick=e=>{e.stopPropagation();showCtx(e,name,u.color);};
     item.oncontextmenu=e=>{e.preventDefault();showCtx(e,name,u.color);};
     list.appendChild(item);
   });
@@ -570,7 +570,7 @@ function renderMsgs(msgs,isDM){
     if(!mine&&!ps){
       const sn=document.createElement("span");sn.className="msender";
       sn.style.color=msg.color;sn.textContent=msg.name;
-      sn.onclick=()=>{if(onlineUsers[msg.name])openDM(msg.name);};
+      sn.onclick=e=>{e.stopPropagation();if(onlineUsers[msg.name])showCtx(e,msg.name,msg.color);};
       sn.oncontextmenu=e=>{e.preventDefault();if(onlineUsers[msg.name])showCtx(e,msg.name,msg.color);};
       col.appendChild(sn);
     }
